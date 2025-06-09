@@ -24,4 +24,20 @@ class Budget:
         total = sum(e.amount for e in self.expenses)
         print(f"총 지출: {total}원\n")
 
+    def monthly_summary(self):
+        from collections import defaultdict
+
+        if not self.expenses:
+            print("지출 내역이 없습니다.\n")
+            return
+
+        summary = defaultdict(int)
+        for e in self.expenses:
+            month = e.date[:7]
+            summary[month] += e.amount
+
+        print("\n[월별 지출 요약]")
+        for month, total in sorted(summary.items()):
+            print(f"{month}: {total}원")
+        print()
 
